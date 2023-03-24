@@ -20,9 +20,9 @@ public class FrontController {
 	private AuthenticationService authSvc;
 
 	@GetMapping
-	public String landPage(Model m, Login l) {
+	public String landPage(Model m) {
 		
-		m.addAttribute("login", l);
+		m.addAttribute("login", new Login());
 		return "view0";
 	}
 
@@ -35,7 +35,7 @@ public class FrontController {
 		login.jsonStrToObj(resp);
 		String auth = login.getAuth();
 		if (!auth.isEmpty()){
-			return "redirect:/protected";
+			return "redirect:/protected/view1";
 		}
 		return "view0";
 	}
