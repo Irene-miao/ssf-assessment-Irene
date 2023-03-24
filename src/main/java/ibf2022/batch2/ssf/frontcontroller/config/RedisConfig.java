@@ -1,5 +1,6 @@
 package ibf2022.batch2.ssf.frontcontroller.config;
 
+import java.time.Duration;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -46,8 +47,13 @@ public class RedisConfig {
         }
         config.setDatabase(0);
 
+        Duration readTimeout = Duration.ofMillis(180 * 1000);
+        Duration connectTimeout = Duration.ofMillis(180 * 1000);
         final JedisClientConfiguration jedisClient = JedisClientConfiguration
                 .builder()
+                .readTimeout(readTimeout)
+                .connectTimeout(connectTimeout)
+                .usePooling()
                 .build();
         final JedisConnectionFactory jedisFac = new JedisConnectionFactory(config, jedisClient);
         jedisFac.afterPropertiesSet();

@@ -18,6 +18,7 @@ public class AuthenticationRepository {
 
 	public void saveLogin(String id, final String json) {
 		redisTemplate.opsForHash().put(LOGIN, id, json);
+		
 	}
 
 	public String getById(String id){
@@ -25,5 +26,9 @@ public class AuthenticationRepository {
         return json;
     }
 
-	
+	public void delete(String id){
+		redisTemplate.opsForHash().delete(LOGIN, id);
+	}
+
+
 }

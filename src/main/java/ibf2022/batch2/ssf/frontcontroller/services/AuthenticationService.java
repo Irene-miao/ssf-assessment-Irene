@@ -1,5 +1,6 @@
 package ibf2022.batch2.ssf.frontcontroller.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import ibf2022.batch2.ssf.frontcontroller.model.Login;
+import ibf2022.batch2.ssf.frontcontroller.respositories.AuthenticationRepository;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
@@ -21,6 +23,8 @@ public class AuthenticationService {
 	@Value("${spring.data.api.url}")
     private String authURL;
 	
+	@Autowired
+	private AuthenticationRepository authRepo;
 
 	// TODO: Task 2
 	// DO NOT CHANGE THE METHOD'S SIGNATURE
@@ -58,7 +62,8 @@ public class AuthenticationService {
 	// TODO: Task 3
 	// DO NOT CHANGE THE METHOD'S SIGNATURE
 	// Write an implementation to disable a user account for 30 mins
-	public void disableUser(String username) {
+	public void disableUser(String id) {
+		authRepo.delete(id);
 	}
 
 	// TODO: Task 5

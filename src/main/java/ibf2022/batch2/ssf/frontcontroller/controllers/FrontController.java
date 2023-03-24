@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ibf2022.batch2.ssf.frontcontroller.model.Login;
 import ibf2022.batch2.ssf.frontcontroller.services.AuthenticationService;
+
 import jakarta.validation.Valid;
 
 @Controller
@@ -31,12 +32,16 @@ public class FrontController {
 		if(binding.hasErrors()){
 			return "view0";
 		}
+
 		String resp = authSvc.authenticate(login);
 		login.jsonStrToObj(resp);
 		String auth = login.getAuth();
+		
 		if (!auth.isEmpty()){
 			return "redirect:/protected/view1";
+			
 		}
+		
 		return "view0";
 	}
 
