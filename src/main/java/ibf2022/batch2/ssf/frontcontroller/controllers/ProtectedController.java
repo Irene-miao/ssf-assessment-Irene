@@ -37,7 +37,7 @@ public class ProtectedController {
 	@Value("${spring.data.chuk.api.url}")
     private String chukURL;
 	
-	@PostMapping(path="/authenticate", produces = "application/json")
+	@PostMapping(path="/authenticate")
 	public ResponseEntity<String> getAuth(@RequestBody String json) throws IOException{
 		
 		
@@ -57,13 +57,12 @@ public class ProtectedController {
 		JsonObjectBuilder obj = Json.createObjectBuilder();
 		JsonObject error = null;
 
-		if (null == resp && resp.getStatusCode().isSameCodeAs(HttpStatus.BAD_REQUEST)) {
+		if (resp.getStatusCode().isSameCodeAs(HttpStatus.BAD_REQUEST)) {
         error = obj.add("message", "Invalid payload").build();
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.toString());
-		}else if  (null == resp && resp.getStatusCode().isSameCodeAs(HttpStatus.UNAUTHORIZED)) {
+		}else if  (resp.getStatusCode().isSameCodeAs(HttpStatus.UNAUTHORIZED)) {
 		error = obj.add("message", "Incorrect username and/or password").build();
-	   
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.toString());
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error.toString());
 	}
 
 		System.out.println(resp.getBody().toString());
@@ -71,7 +70,10 @@ public class ProtectedController {
 		login.jsonStrToObj(json);
 		authRepo.saveLogin(login.getId(), json);
 			
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(json);
+		return ResponseEntity
+		.status(HttpStatus.ACCEPTED)
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(json);
         
 		
 	}

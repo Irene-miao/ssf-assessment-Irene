@@ -52,11 +52,17 @@ method="post">
 		</td>
 	</tr>
 	<tr>
-		<td></td>
+		<td data-th-if="${login.auth}">
+			What is 5*2?
+			<input type="answer" id="answer" size="30" 
+					placeholder="Please type in your answer"
+					data-th-field="*{answer}">
+		</td>
 		<td>
 			<button type="submit">Login</button>
 		</td>
 	</tr>
+	
 </table>
 </form>
 		

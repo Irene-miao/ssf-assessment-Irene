@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -13,13 +14,14 @@ import ibf2022.batch2.ssf.frontcontroller.model.Login;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
+@Service
 public class AuthenticationService {
 
 
 	@Value("${spring.data.api.url}")
     private String authURL;
 	
-	
+
 	// TODO: Task 2
 	// DO NOT CHANGE THE METHOD'S SIGNATURE
 	// Write the authentication method in here
@@ -41,7 +43,7 @@ public class AuthenticationService {
         resp = template.exchange(url, HttpMethod.POST, requestEntity, String.class);
         if (null == resp) {
             JsonObject error = Json.createObjectBuilder()
-       .add("message", "Item %s not saved")
+       .add("message", "Not authenticated")
        .build();
        
        return error.toString();

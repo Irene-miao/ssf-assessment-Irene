@@ -28,6 +28,8 @@ public class Login implements Serializable{
     
     private String id;
     
+    private Integer answer;
+
    private String auth;
 
     public Login() {
@@ -64,7 +66,8 @@ public class Login implements Serializable{
 
     @Override
     public String toString() {
-        return "Login [username=" + username + ", password=" + password + ", id=" + id + "]";
+        return "Login [username=" + username + ", password=" + password + ", id=" + id + ", answer=" + answer
+                + ", auth=" + auth + "]";
     }
 
 
@@ -77,7 +80,7 @@ public class Login implements Serializable{
 
         return strbuilder.toString().substring(0, maxChars);
     }
-    
+
     public JsonObjectBuilder toJSON(){
         return Json.createObjectBuilder()
             .add("username", this.getUsername())
@@ -125,6 +128,18 @@ public class Login implements Serializable{
 
     public void setAuth(String auth) {
         this.auth = auth;
+    }
+
+
+
+    public Integer getAnswer() {
+        return answer;
+    }
+
+
+
+    public void setAnswer(Integer answer) {
+        this.answer = answer;
     }
     
     
